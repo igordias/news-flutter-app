@@ -1,8 +1,10 @@
 name: flutterapptemplate
 description: A new Flutter application template.
 
-productionApi: http://5d42a6e2bc64f90014a56ca0.mockapi.io/api/v1/tasks
-stagingApi: http://5d42a6e2bc64f90014a56ca0.mockapi.io/api/v1/tasks
+# API Entry points
+apiProduction: http://5d42a6e2bc64f90014a56ca0.mockapi.io/api/v1/tasks
+apiStaging: http://5d42a6e2bc64f90014a56ca0.mockapi.io/api/v1/tasks
+apiDev: http://5d42a6e2bc64f90014a56ca0.mockapi.io/api/v1/tasks
 
 version: 1.0.0+1
 
@@ -12,11 +14,29 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_bloc: ^3.0.0
+
+  # Design
   cupertino_icons: ^0.1.2
+
+  # Utility
+  package_info: ^0.4.0+16
+  equatable: ^1.1.1
+
+  # Http
+  chopper: ^3.0.2
+
+  # Dependency injection and State Management
+  provider: ^4.0.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  chopper_generator: ^3.0.4
+  build_runner:
+  gen_lang: 0.1.0
 
 flutter:
   uses-material-design: true
