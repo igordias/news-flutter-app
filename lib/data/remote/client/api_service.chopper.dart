@@ -17,10 +17,10 @@ class _$ApiService extends ApiService {
   final definitionType = ApiService;
 
   @override
-  Future<Response<dynamic>> signIn(String email, String password) {
+  Future<Response<BuiltList<BuiltUser>>> signIn(String email, String password) {
     final $url = '';
     final $body = <String, dynamic>{'email': email, 'password': password};
     final $request = Request('POST', $url, client.baseUrl, body: $body);
-    return client.send<dynamic, dynamic>($request);
+    return client.send<BuiltList<BuiltUser>, BuiltUser>($request);
   }
 }
