@@ -1,9 +1,11 @@
 import 'package:chopper/chopper.dart';
+import 'package:flutterapptemplate/data/remote/client/environment.dart';
 
 class AuthInterceptor extends HeadersInterceptor {
-  static const HEADER_TOKEN_PARAM = "";
-  static const HEADER_EMAIL_PARAM = "";
+  static const HEADER_API_KEY = "X-Api-Key";
 
-  //TODO: get information from cache
-  AuthInterceptor() : super({HEADER_TOKEN_PARAM: "", HEADER_EMAIL_PARAM: ""});
+  AuthInterceptor()
+      : super({
+          HEADER_API_KEY: Environment.apiKey
+        });
 }
