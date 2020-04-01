@@ -17,6 +17,9 @@ class BuiltValueConverter extends JsonConverter {
     return dynamicResponse.copyWith<BodyType>(body: customBody);
   }
 
+  //TODO: Definetely should think of a better way to deal with this
+  // instead of removing keys like this. Maybe having a Model for Responses
+  // with Status, totalResults and and object (Response Wrapper) would work.
   dynamic _convertToCustomObject<SingleItemType>(dynamic element) {
     if(element is Map){
       element.remove("status");
@@ -40,7 +43,7 @@ class BuiltValueConverter extends JsonConverter {
     );
   }
 
-  SingleItemType _deserialize<SingleItemType>(Map<String, dynamic> value) {
+  SingleItemType _deserialize<SingleItemType>(Map<String, SingleItemType> value) {
     return serializers.deserializeWith(
       serializers.serializerForType(SingleItemType),
       value,
