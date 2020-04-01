@@ -1,14 +1,12 @@
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 import 'package:flutterapptemplate/data/remote/entity/built_article.dart';
-import 'package:flutterapptemplate/data/remote/entity/built_response.dart';
 import 'package:flutterapptemplate/data/remote/entity/built_source.dart';
 import 'package:built_collection/built_collection.dart';
 
 part 'serializers.g.dart';
 
 @SerializersFor(const [
-  BuiltResponse,
   BuiltArticle,
   BuiltSource
 ])

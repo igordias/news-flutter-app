@@ -2,8 +2,7 @@ import 'dart:convert';
 
 import 'package:chopper/chopper.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:flutterapptemplate/data/core/util/serializers.dart';
-import 'package:flutterapptemplate/data/remote/entity/built_response.dart';
+import 'package:flutterapptemplate/data/remote/entity/serializer/serializers.dart';
 
 class BuiltValueConverter extends JsonConverter {
   @override

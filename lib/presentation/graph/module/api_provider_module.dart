@@ -1,6 +1,6 @@
 import 'package:chopper/chopper.dart';
-import 'package:flutterapptemplate/data/remote/client/auth_interceptor.dart';
-import 'package:flutterapptemplate/data/remote/client/built_value_converter.dart';
+import 'package:flutterapptemplate/data/remote/client/request/built_value_converter.dart';
+import 'package:flutterapptemplate/data/remote/client/request/interceptor/auth_interceptor.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:flutterapptemplate/data/remote/client/api_client.dart';
 import 'package:flutterapptemplate/data/remote/client/api_service.dart';

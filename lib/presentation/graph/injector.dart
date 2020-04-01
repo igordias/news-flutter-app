@@ -1,7 +1,6 @@
-import 'package:chopper/chopper.dart';
-import 'package:flutterapptemplate/presentation/graph/repository_provider_module.dart';
+import 'package:flutterapptemplate/presentation/graph/module/api_provider_module.dart';
+import 'package:flutterapptemplate/presentation/graph/module/repository_provider_module.dart';
 import 'package:kiwi/kiwi.dart';
-import 'api_provider_module.dart';
 
 abstract class Injector {
   static Container container;

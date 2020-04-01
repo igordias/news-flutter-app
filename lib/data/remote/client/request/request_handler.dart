@@ -3,8 +3,8 @@ import 'dart:io';
 import 'dart:core';
 import 'package:chopper/chopper.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutterapptemplate/data/remote/client/request/error/request_exception.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:flutterapptemplate/data/remote/client/request_exception.dart';
 
 class RequestHandler {
 
