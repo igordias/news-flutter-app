@@ -7,7 +7,7 @@ import 'package:built_collection/built_collection.dart';
 
 part 'api_service.chopper.dart';
 
-@ChopperApi(baseUrl: Environment.entryPoint + Environment.apiVersion)
+@ChopperApi()
 abstract class ApiService extends ChopperService {
     
   static ApiService create(ChopperClient client) => _$ApiService(client);

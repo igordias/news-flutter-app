@@ -1,4 +1,5 @@
 import 'package:chopper/chopper.dart';
+import 'package:flutterapptemplate/data/remote/client/environment.dart';
 import 'package:flutterapptemplate/data/remote/client/request/built_value_converter.dart';
 import 'package:flutterapptemplate/data/remote/client/request/interceptor/auth_interceptor.dart';
 import 'package:kiwi/kiwi.dart';
@@ -16,6 +17,7 @@ abstract class ApiProviderModule {
   static const String AUTH_INTERCEPTOR = "AUTH_INTERCEPTOR";
   static const String HTTP_LOGGING_INTERCEPTOR = "HTTP_LOGGING_INTERCEPTOR";
   static const String BUILT_VALUE_CONVERTER = "BUILT_VALUE_CONVERTER";
+  static const String BASE_URL = "BASE_URL";
 
   static void setup() {
     container = Injector.container;
@@ -23,6 +25,7 @@ abstract class ApiProviderModule {
   }
 
   void _configure() {
+    _provideBaseUrl();
     _provideBuiltValueConverter();
     _provideInterceptors();
     _provideChopperClient();
@@ -37,6 +40,13 @@ abstract class ApiProviderModule {
   @Register.singleton(HttpLoggingInterceptor, name: HTTP_LOGGING_INTERCEPTOR)
   void _provideInterceptors();
 
+  void _provideBaseUrl(){
+    container.registerSingleton(
+      (c) => Environment.entryPoint + Environment.apiVersion,
+      name: BASE_URL
+    );
+  }
+
   void _provideChopperClient() {
     List clientInterceptors = [
       container<AuthInterceptor>(AUTH_INTERCEPTOR),
@@ -45,7 +55,8 @@ abstract class ApiProviderModule {
 
     ChopperClient chopperClient = ChopperClient(
         converter: container<BuiltValueConverter>(BUILT_VALUE_CONVERTER),
-        interceptors: clientInterceptors);
+        interceptors: clientInterceptors,
+        baseUrl: container<String>(BASE_URL));
 
     container.registerInstance(chopperClient, name: CHOPPER_CLIENT);
   }
