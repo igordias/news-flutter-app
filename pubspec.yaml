@@ -19,15 +19,20 @@ dependencies:
   package_info: ^0.4.0+16
   equatable: ^1.1.1
 
-  # Client
+  # Http Client generator
   chopper: ^3.0.2
+
+  # Serialization
   built_value: ^7.0.9
 
   # Dependency injection and State Management
   provider: ^4.0.4
   kiwi: ^0.2.0
+
   data_classes: ^3.0.0
   rxdart: ^0.23.1
+
+  # Functional programming
   dartz: ^0.9.0-dev.5
 
 dev_dependencies:
