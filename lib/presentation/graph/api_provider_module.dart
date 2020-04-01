@@ -27,18 +27,7 @@ abstract class ApiProviderModule {
     _provideInterceptors();
     _provideChopperClient();
     _provideApiService();
-    //_provideApiClient();
-  }
-
-  void _provideApiService() {
-    container.registerSingleton(
-        (c) => ApiService.create(c<ChopperClient>(CHOPPER_CLIENT)),
-        name: API_SERVICE
-    );
-    
-    container.registerSingleton((c) => ApiClient(
-      c<ApiService>(API_SERVICE)
-    ));
+    _provideApiClient();
   }
 
   @Register.singleton(BuiltValueConverter, name: BUILT_VALUE_CONVERTER)
@@ -55,9 +44,19 @@ abstract class ApiProviderModule {
     ];
 
     ChopperClient chopperClient = ChopperClient(
-        converter: BuiltValueConverter(),
+        converter: container<BuiltValueConverter>(BUILT_VALUE_CONVERTER),
         interceptors: clientInterceptors);
-    
+
     container.registerInstance(chopperClient, name: CHOPPER_CLIENT);
+  }
+
+  void _provideApiClient() {
+    container.registerSingleton((c) => ApiClient(c<ApiService>(API_SERVICE)));
+  }
+
+  void _provideApiService() {
+    container.registerSingleton(
+        (c) => ApiService.create(c<ChopperClient>(CHOPPER_CLIENT)),
+        name: API_SERVICE);
   }
 }
