@@ -10,9 +10,9 @@ class DefaultArticlesRepository implements ArticlesRepository {
 
   //TODO: implement RX, deal with errors
   @override
-  Future<List<Article>> getTopHeadlines() {
+  Future<List<Article>> getTopHeadlines(String countryCode) {
    return _apiClient
-    .getTopHeadlines("br")
+    .getTopHeadlines(countryCode)
     .then((builtList) => builtList.map((builtArticle) => builtArticle.toArticle()).toList());
   }
 }

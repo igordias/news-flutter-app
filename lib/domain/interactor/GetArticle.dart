@@ -4,9 +4,9 @@ import 'package:flutterapptemplate/presentation/graph/injector.dart';
 import 'package:rxdart/rxdart.dart';
 
 class GetArticle {
-  final _repository = Injector.resolve<ArticlesRepository>();
+  static final _repository = Injector.resolve<ArticlesRepository>();
 
-  Future<List<Article>> getTopHeadlines() {
-    return _repository.getTopHeadlines();
+  static Future<List<Article>> getTopHeadlines(String countryCode) {
+    return _repository.getTopHeadlines(countryCode);
   }
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapptemplate/domain/interactor/GetArticle.dart';
 import 'package:flutterapptemplate/presentation/graph/injector.dart';
 import 'package:flutterapptemplate/presentation/graph/injector.dart';
+import 'package:flutterapptemplate/presentation/view/widgets/headlines/bloc/headlines_bloc.dart';
+import 'package:flutterapptemplate/presentation/view/widgets/headlines/headlines_widget.dart';
 import 'package:kiwi/kiwi.dart' as kiwi;
 
 import 'domain/entity/mutable_article.dart';
@@ -19,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'News'),
     );
   }
 }
@@ -34,28 +37,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _name = "NOTHING";
-  int _counter = 0;
-
-  void _runCode() {
-    _fetchGrandMasterLeague();
-  }
-
-  //TODO: Implement BLOC!
-  Future<List<Article>> _fetchGrandMasterLeague() async {
-    List<Article> articles = await GetArticle().getTopHeadlines();
-    if(articles != null){
-      setState(() {
-        this._name = articles.first.title.toString();
-      });
-    }
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,25 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_name',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _runCode,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
+      body: HeadlinesWidget(),
     );
   }
 }
