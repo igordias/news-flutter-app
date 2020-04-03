@@ -11,9 +11,11 @@ class BuiltValueConverter extends JsonConverter {
   }
 
   @override
-  Response<BodyType> convertResponse<BodyType, SingleItemType>(Response response) {
+  Response<BodyType> convertResponse<BodyType, SingleItemType>(
+      Response response) {
     final Response dynamicResponse = super.convertResponse(response);
-    final BodyType customBody = _convertToCustomObject<SingleItemType>(dynamicResponse.body);
+    final BodyType customBody =
+        _convertToCustomObject<SingleItemType>(dynamicResponse.body);
     return dynamicResponse.copyWith<BodyType>(body: customBody);
   }
 
@@ -21,33 +23,19 @@ class BuiltValueConverter extends JsonConverter {
   // instead of removing keys like this. Maybe having a Model for Responses
   // with Status, totalResults and and object (Response Wrapper) would work.
   dynamic _convertToCustomObject<SingleItemType>(dynamic element) {
-    if(element is Map){
+    if (element is Map) {
       element.remove("status");
       element.remove("totalResults");
+      return _convertToCustomObject<SingleItemType>(element.values.first);
     }
 
     if (element is SingleItemType) {
       return element;
     } else if (element is List) {
-      return _deserializeListOf<SingleItemType>(element);
-    } else if(element is Map){
-      return _deserializeListOf<SingleItemType>(element.values.first);
-    }else{
-      return _deserialize<SingleItemType>(element);
+      return deserializeListOf<SingleItemType>(element);
+    } else {
+      return deserialize<SingleItemType>(element);
     }
-  }
-
-  BuiltList<SingleItemType> _deserializeListOf<SingleItemType>(List dynamicList) {
-    return BuiltList<SingleItemType>(
-      dynamicList.map((element) => _deserialize<SingleItemType>(element)),
-    );
-  }
-
-  SingleItemType _deserialize<SingleItemType>(Map<String, SingleItemType> value) {
-    return serializers.deserializeWith(
-      serializers.serializerForType(SingleItemType),
-      value,
-    );
   }
 
   Request _getSerializedRequest(Request request) {

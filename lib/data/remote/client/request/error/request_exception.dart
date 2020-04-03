@@ -27,11 +27,13 @@ class RequestException implements Exception {
     return RequestException(null, null, ErrorType.NETWORK, exception);
   }
 
+  //TODO: Implement
   static RequestException onUnexpectedException(Object error) {
     if (error is Exception) {
     } else {}
   }
 
+  //TODO: Implement
   static RequestException onHttpException(int code, dynamic body){
 
   }
