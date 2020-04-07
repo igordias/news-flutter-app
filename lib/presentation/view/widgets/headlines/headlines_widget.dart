@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapptemplate/domain/entity/mutable_article.dart';
 import 'package:flutterapptemplate/presentation/view/widgets/headlines/bloc/headlines_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HeadlinesWidget extends StatelessWidget {
   @override
@@ -9,26 +10,24 @@ class HeadlinesWidget extends StatelessWidget {
     final _headlinesBloc = HeadlinesBloc();
 
     return Scaffold(
-      body: Center(
-        child: BlocBuilder(
-          bloc: _headlinesBloc,
-          builder: (context, state) {
-            if (state is HeadlinesInitialState) {
-              _headlinesBloc.add(GetHeadlinesForCountry("br"));
-              return Container(
-                height: 0.0,
-                width: 0.0,
-              );
-            }
-            if (state is HeadlinesLoadingState) return _buildLoading();
-            if (state is HeadlinesLoadedState)
-              return _builtArticleCards(state.headlines);
-          },
-        ),
+      body: BlocBuilder(
+        bloc: _headlinesBloc,
+        builder: (context, state) {
+          if (state is HeadlinesInitialState) {
+            _headlinesBloc.add(GetHeadlinesForCountry("us"));
+            return Container(
+              height: 0.0,
+              width: 0.0,
+            );
+          }
+          if (state is HeadlinesLoadingState) return _buildLoading();
+          if (state is HeadlinesLoadedState)
+            return _builtArticleCards(state.headlines);
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _headlinesBloc.add(GetHeadlinesForCountry("br"));
+          _headlinesBloc.add(GetHeadlinesForCountry("us"));
         },
         tooltip: 'Update',
         child: Icon(Icons.update),
@@ -37,32 +36,76 @@ class HeadlinesWidget extends StatelessWidget {
   }
 }
 
+Widget old(List<Article> articles) {
+  return ListView.builder(
+      itemCount: articles.length,
+      itemBuilder: (context, index) {
+        final item = articles[index];
+        return Card(
+          semanticContainer: true,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Expanded(
+                child: Image.network(item.urlToImage, fit: BoxFit.cover),
+              ),
+              Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text('Card number! ',
+                          style: TextStyle(
+                              fontSize: 20.0, fontWeight: FontWeight.w700)),
+                      Padding(padding: EdgeInsets.only(bottom: 8.0)),
+                      Text('A short description.', textAlign: TextAlign.start),
+                    ],
+                  ))
+            ],
+          ),
+        );
+      });
+}
+
 Widget _builtArticleCards(List<Article> articles) {
   return ListView.builder(
     itemCount: articles.length,
-    itemBuilder: (context, index) {
-      final item = articles[index];
-      return Card(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-                leading: Icon(Icons.chrome_reader_mode),
-                title: Text(item.title),
-                subtitle: Text(item.source.name)),
-            ButtonBar(
-              children: <Widget>[
-                FlatButton(
-                  child: const Text('READ'),
-                  onPressed: () {/* ... */},
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
-    },
+    itemBuilder: (context, index) => _buildArticleCard(articles[index]),
   );
+}
+
+Widget _buildArticleCard(Article article) {
+  return Column(children: <Widget>[
+    Card(
+        semanticContainer: true,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6.0),
+        ),
+        elevation: 5,
+        margin: EdgeInsets.all(15),
+        child: Column(children: <Widget>[ 
+          Image.network(
+            article.urlToImage,
+            fit: BoxFit.fill,
+          ),
+          Container(
+              padding: EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(article.title,
+                      style: TextStyle(
+                          fontSize: 20.0, fontWeight: FontWeight.w700)),
+                  //Padding(padding: EdgeInsets.only(bottom: 8.0)),
+                  //Text(item.description, textAlign: TextAlign.start),
+                ],
+              )),
+        ])),
+  ]);
 }
 
 Widget _buildLoading() {

@@ -4,6 +4,7 @@ import 'package:flutterapptemplate/domain/interactor/GetArticle.dart';
 import 'package:flutterapptemplate/presentation/graph/injector.dart';
 import 'package:flutterapptemplate/presentation/graph/injector.dart';
 import 'package:flutterapptemplate/presentation/view/widgets/headlines/bloc/headlines_bloc.dart';
+import 'package:flutterapptemplate/presentation/view/widgets/headlines/headlines_categories_widget.dart';
 import 'package:flutterapptemplate/presentation/view/widgets/headlines/headlines_widget.dart';
 import 'package:kiwi/kiwi.dart' as kiwi;
 
@@ -37,7 +38,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -18,6 +18,7 @@ dependencies:
   # Utility
   package_info: ^0.4.0+16
   equatable: ^1.1.1
+  url_launcher: ^5.4.2
 
   # Http Client generator
   chopper: ^3.0.2
