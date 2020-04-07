@@ -30,7 +30,10 @@ class RequestException implements Exception {
   //TODO: Implement
   static RequestException onUnexpectedException(Object error) {
     if (error is Exception) {
-    } else {}
+      
+    } else {
+
+    }
   }
 
   //TODO: Implement

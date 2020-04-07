@@ -1,7 +1,3 @@
-import 'dart:convert';
-
-import 'package:chopper/chopper.dart';
-import 'package:flutterapptemplate/data/remote/entity/serializer/serializers.dart';
 import 'package:flutterapptemplate/data/remote/client/api_service.dart';
 import 'package:flutterapptemplate/data/remote/client/request/request_handler.dart';
 import 'package:flutterapptemplate/data/remote/entity/built_article.dart';

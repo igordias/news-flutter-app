@@ -25,12 +25,12 @@ class RequestHandler {
 
   RequestException _resolveRequestException(Object error) {
     switch (error.runtimeType) {
+      case RequestException:
+        return error;
       case TimeoutException:
         return RequestException.onTimeoutException(error);
       case SocketException:
         return RequestException.onSocketException(error);
-      case RequestException:
-        return error;
       case IOException:
         return RequestException.onNetworkException(error);
       default:
