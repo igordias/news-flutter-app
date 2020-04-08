@@ -1,8 +1,6 @@
 import 'package:chopper/chopper.dart';
-import 'package:flutterapptemplate/data/remote/client/api_client.dart';
 import 'package:flutterapptemplate/data/remote/client/environment.dart';
 import 'package:flutterapptemplate/data/remote/entity/built_article.dart';
-import 'package:flutterapptemplate/presentation/graph/injector.dart';
 import 'package:built_collection/built_collection.dart';
 
 part 'api_service.chopper.dart';

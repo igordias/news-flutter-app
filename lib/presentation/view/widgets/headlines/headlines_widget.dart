@@ -36,40 +36,6 @@ class HeadlinesWidget extends StatelessWidget {
   }
 }
 
-Widget old(List<Article> articles) {
-  return ListView.builder(
-      itemCount: articles.length,
-      itemBuilder: (context, index) {
-        final item = articles[index];
-        return Card(
-          semanticContainer: true,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                child: Image.network(item.urlToImage, fit: BoxFit.cover),
-              ),
-              Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text('Card number! ',
-                          style: TextStyle(
-                              fontSize: 20.0, fontWeight: FontWeight.w700)),
-                      Padding(padding: EdgeInsets.only(bottom: 8.0)),
-                      Text('A short description.', textAlign: TextAlign.start),
-                    ],
-                  ))
-            ],
-          ),
-        );
-      });
-}
-
 Widget _builtArticleCards(List<Article> articles) {
   return ListView.builder(
     itemCount: articles.length,
@@ -79,32 +45,35 @@ Widget _builtArticleCards(List<Article> articles) {
 
 Widget _buildArticleCard(Article article) {
   return Column(children: <Widget>[
-    Card(
-        semanticContainer: true,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6.0),
-        ),
-        elevation: 5,
-        margin: EdgeInsets.all(15),
-        child: Column(children: <Widget>[ 
-          Image.network(
-            article.urlToImage,
-            fit: BoxFit.fill,
+    GestureDetector(
+      onTap: () => _launchURL(article.url),
+      child: Card(
+          semanticContainer: true,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6.0),
           ),
-          Container(
-              padding: EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(article.title,
-                      style: TextStyle(
-                          fontSize: 20.0, fontWeight: FontWeight.w700)),
-                  //Padding(padding: EdgeInsets.only(bottom: 8.0)),
-                  //Text(item.description, textAlign: TextAlign.start),
-                ],
-              )),
-        ])),
+          elevation: 5,
+          margin: EdgeInsets.all(15),
+          child: Column(children: <Widget>[
+            Image.network(
+              article.urlToImage,
+              fit: BoxFit.fill,
+            ),
+            Container(
+                padding: EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(article.title,
+                        style: TextStyle(
+                            fontSize: 20.0, fontWeight: FontWeight.w700)),
+                    //Padding(padding: EdgeInsets.only(bottom: 8.0)),
+                    //Text(item.description, textAlign: TextAlign.start),
+                  ],
+                )),
+          ])),
+    )
   ]);
 }
 
@@ -112,4 +81,12 @@ Widget _buildLoading() {
   return Center(
     child: CircularProgressIndicator(),
   );
+}
+
+_launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
 }
