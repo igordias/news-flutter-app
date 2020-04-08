@@ -2,7 +2,7 @@ import 'package:chopper/chopper.dart';
 import 'package:flutterapptemplate/data/remote/entity/serializer/serializers.dart';
 import 'package:http/src/base_response.dart';
 
-class WrappedResponseBody<T> {
+class ApiResponseBody<T> {
   static const KEY_STATUS = "status";
   static const KEY_TOTAL_RESULTS = "totalResults";
   static const KEY_CODE = "code";
@@ -20,7 +20,7 @@ class WrappedResponseBody<T> {
   String get message => this._message;
   dynamic get result => this._result;
 
-  WrappedResponseBody(Map bodyMap) {
+  ApiResponseBody(Map bodyMap) {
     this._status = bodyMap[KEY_STATUS];
     this._totalResults = bodyMap[KEY_TOTAL_RESULTS];
     this._code = bodyMap[KEY_CODE];

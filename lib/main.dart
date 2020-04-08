@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapptemplate/domain/interactor/GetArticle.dart';
 import 'package:flutterapptemplate/presentation/graph/injector.dart';
 import 'package:flutterapptemplate/presentation/graph/injector.dart';
-import 'package:flutterapptemplate/presentation/view/widgets/headlines/bloc/headlines_bloc.dart';
+import 'package:flutterapptemplate/presentation/view/widgets/headlines/headlines/headlines_bloc.dart';
 import 'package:flutterapptemplate/presentation/view/widgets/headlines/headlines_categories_widget.dart';
 import 'package:flutterapptemplate/presentation/view/widgets/headlines/headlines_widget.dart';
 import 'package:kiwi/kiwi.dart' as kiwi;

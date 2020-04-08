@@ -16,7 +16,7 @@ enum HttpErrorType {
 
 extension HttpErrorTypeExtension on HttpErrorType {
 
-  static HttpErrorType fromCode(int code) {
+  static HttpErrorType getTypeFromCode(int code) {
     switch (code) {
       case 400:
         return HttpErrorType.BAD_REQUEST;

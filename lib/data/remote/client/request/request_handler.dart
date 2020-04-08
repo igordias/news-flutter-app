@@ -23,7 +23,7 @@ class RequestHandler {
     }
   }
 
-  RequestException _resolveRequestException(Object error) {
+  RequestException _resolveRequestException(dynamic error) {
     switch (error.runtimeType) {
       case RequestException:
         return error;

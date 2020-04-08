@@ -1,5 +1,5 @@
 import 'package:chopper/chopper.dart';
-import 'package:flutterapptemplate/data/remote/client/request/wrapped_response_body.dart';
+import 'package:flutterapptemplate/data/remote/client/request/api_response_body.dart';
 import 'package:flutterapptemplate/data/remote/entity/serializer/serializers.dart';
 
 class BuiltValueConverter extends JsonConverter {
@@ -12,7 +12,7 @@ class BuiltValueConverter extends JsonConverter {
   Response<BodyType> convertResponse<BodyType, SingleItemType>(
       Response response) {
     final dynamicResponse = super.convertResponse(response);
-    final body = WrappedResponseBody<SingleItemType>(dynamicResponse.body);
+    final body = ApiResponseBody<SingleItemType>(dynamicResponse.body);
     return dynamicResponse.copyWith<BodyType>(body: body.result);
   }
 

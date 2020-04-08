@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapptemplate/domain/entity/mutable_article.dart';
-import 'package:flutterapptemplate/presentation/view/widgets/headlines/bloc/headlines_bloc.dart';
+import 'package:flutterapptemplate/presentation/view/widgets/headlines/headlines/headlines_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HeadlinesWidget extends StatelessWidget {
