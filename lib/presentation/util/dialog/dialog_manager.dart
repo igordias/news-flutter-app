@@ -17,7 +17,7 @@ class _DialogManagerState extends State<DialogManager> {
   void initState() {
     super.initState();
     _dialogService.registerDialogListener((dialogRequest) {
-      _onAlertRequest(dialogRequest);
+      _onDialogRequest(dialogRequest);
     });
   }
 
@@ -26,7 +26,7 @@ class _DialogManagerState extends State<DialogManager> {
     return widget.child;
   }
 
-  void _onAlertRequest(DialogRequest dialogRequest) {
+  void _onDialogRequest(DialogRequest dialogRequest) {
     if (dialogRequest.buttonAction != null) {
       buildActionDialog(dialogRequest);
     } else {

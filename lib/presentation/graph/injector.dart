@@ -13,8 +13,6 @@ abstract class Injector {
 
   static final resolve = container.resolve;
 
-  static const String ERROR_STREAM = "ERROR_STREAM";
-
   static void setup() {
     container = Container();
     _provideErrorHandler();

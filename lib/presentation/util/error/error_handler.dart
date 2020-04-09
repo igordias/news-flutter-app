@@ -29,28 +29,28 @@ class ErrorHandler {
         _onHttpErrorThrown(exception, tryAgainAction);
         break;
       case ErrorType.NETWORK:
-        sendAlertRequest(
+        sendDialogRequest(
             "Connection error",
             "It wasn't possible to complete the operation. Please check your connection.",
             "TRY AGAIN",
             tryAgainAction);
         break;
       case ErrorType.SOCKET:
-        sendAlertRequest(
+        sendDialogRequest(
             "Connection error",
             "It wasn't possible to complete the operation. Please check your connection.",
             "TRY AGAIN",
             tryAgainAction);
         break;
       case ErrorType.UNEXPECTED:
-        sendAlertRequest(
+        sendDialogRequest(
             "Unexpected error",
             "It wasn't possible to complete the operation. Try again later.",
             "TRY AGAIN",
             tryAgainAction);
         break;
       case ErrorType.TIMEOUT:
-        sendAlertRequest(
+        sendDialogRequest(
             "Connection error",
             "Operation timeout. Plesse, try again.",
             "TRY AGAIN",
@@ -65,18 +65,18 @@ class ErrorHandler {
 
     switch (httpErrorType) {
       case HttpErrorType.NOT_FOUND:
-        sendAlertRequest(
+        sendDialogRequest(
             "Not found",
             "The resource you were looking for could not be found.",
             "TRY AGAIN",
             tryAgainAction);
         break;
       case HttpErrorType.TIMEOUT:
-        sendAlertRequest("Timeout", "Operation timeout. Plesse, try again.",
+        sendDialogRequest("Timeout", "Operation timeout. Plesse, try again.",
             "TRY AGAIN", tryAgainAction);
         break;
       case HttpErrorType.INTERNAL_SERVER_ERROR:
-        sendAlertRequest(
+        sendDialogRequest(
             "Error",
             "It wasn't possible to complete the operation. Try again later.",
             "TRY AGAIN",
@@ -86,20 +86,20 @@ class ErrorHandler {
         unexpectedErrorDialog(tryAgainAction);
         break;
       default:
-        sendAlertRequest("Error",
+        sendDialogRequest("Error",
             exception.message ?? "An unexpected error ocurred.", null, null);
     }
   }
 
   void unexpectedErrorDialog(Function tryAgainAction) {
-    sendAlertRequest(
+    sendDialogRequest(
         "Unexpected error",
         "It wasn't possible to complete the operation. Try again later.",
         "TRY AGAIN",
         tryAgainAction);
   }
 
-  void sendAlertRequest(
+  void sendDialogRequest(
       String title, String message, String buttonTitle, Function buttonAction) {
     DialogRequest dialogRequest = DialogRequest(
         title: title,
