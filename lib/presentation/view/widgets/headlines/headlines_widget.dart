@@ -15,14 +15,14 @@ class HeadlinesWidget extends StatelessWidget {
         builder: (context, state) {
           if (state is HeadlinesInitialState) {
             _headlinesBloc.add(GetHeadlinesForCountry("us"));
-            return Container(
-              height: 0.0,
-              width: 0.0,
-            );
+            return Container(width: 0.0, height: 0.0);
           }
           if (state is HeadlinesLoadingState) return _buildLoading();
           if (state is HeadlinesLoadedState)
             return _builtArticleCards(state.headlines);
+
+          if (state is HeadlinesErrorState)
+            return Container(width: 0.0, height: 0.0);
         },
       ),
       floatingActionButton: FloatingActionButton(

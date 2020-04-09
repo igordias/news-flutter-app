@@ -23,3 +23,13 @@ class HeadlinesLoadedState extends HeadlinesState{
   List<Object> get props => [headlines];
 
 }
+
+class HeadlinesErrorState extends HeadlinesState{
+  final Exception exception;
+
+  HeadlinesErrorState(this.exception);
+
+  @override
+  List<Exception> get props => [exception];
+
+}

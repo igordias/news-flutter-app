@@ -7,19 +7,19 @@ import 'package:flutterapptemplate/data/remote/client/request/error/request_exce
 import 'package:rxdart/rxdart.dart';
 
 class RequestHandler {
-
   Future<T> request<T>(Future<Response<T>> response) {
     return response
-    .then((response) => _checkHttpException(response))
-    .catchError((error) => _resolveRequestException(error))
-    .then((response) => response.body);
+        .then((response) => _checkHttpException(response))
+        .catchError((error) => throw _resolveRequestException(error))
+        .then((response) => response.body);
   }
 
   Response _checkHttpException(Response response) {
     if (response.isSuccessful) {
       return response;
     } else {
-      throw RequestException.onHttpException(response.statusCode, response.body);
+      throw RequestException.onHttpException(
+          response.statusCode, response.body);
     }
   }
 

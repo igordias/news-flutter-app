@@ -37,7 +37,6 @@ class RequestException implements Exception {
   }
 
   static RequestException onUnexpectedException(Exception exception) {
-    log(exception.toString());
     return RequestException(null, exception.toString(), ErrorType.UNEXPECTED, exception);
   }
 
@@ -47,9 +46,4 @@ class RequestException implements Exception {
   }
 
   bool isErrorType(ErrorType errorType) => this._type == errorType;
-  bool isTimeoutException() => isErrorType(ErrorType.TIMEOUT);
-  bool isSocketException() => isErrorType(ErrorType.SOCKET);
-  bool isNetworkException() => isErrorType(ErrorType.NETWORK);
-  bool isUnexpectedException() => isErrorType(ErrorType.UNEXPECTED);
-  bool isHttpException() => isErrorType(ErrorType.HTTP);
 }

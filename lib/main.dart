@@ -1,10 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutterapptemplate/domain/interactor/GetArticle.dart';
 import 'package:flutterapptemplate/presentation/graph/injector.dart';
 import 'package:flutterapptemplate/presentation/graph/injector.dart';
-import 'package:flutterapptemplate/presentation/view/widgets/headlines/headlines/headlines_bloc.dart';
-import 'package:flutterapptemplate/presentation/view/widgets/headlines/headlines_categories_widget.dart';
+import 'package:flutterapptemplate/presentation/util/dialog/dialog_manager.dart';
+import 'package:flutterapptemplate/presentation/util/dialog/dialog_service.dart';
+import 'package:flutterapptemplate/presentation/util/error/error_handler.dart';
+import 'package:flutterapptemplate/presentation/util/error/error_stream_controller.dart';
 import 'package:flutterapptemplate/presentation/view/widgets/headlines/headlines_widget.dart';
 import 'package:kiwi/kiwi.dart' as kiwi;
 
@@ -16,14 +18,35 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  Stream _errorStream = Injector.resolve<ErrorStreamController>().stream;
+  ErrorHandler _errorHandler = Injector.resolve<ErrorHandler>();
+
   @override
   Widget build(BuildContext context) {
+    _initErrorHandler();
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MyHomePage(title: 'News'),
+        builder: (context, widget) {
+          return _initDialogManager(context, widget);
+        });
+  }
+
+  void _initErrorHandler() {
+    _errorStream.listen((error) =>
+        _errorHandler.handleException(error.exception, error.retryAction));
+  }
+
+  Widget _initDialogManager(BuildContext context, Widget widget) {
+    return Navigator(
+      onGenerateRoute: (settings) => MaterialPageRoute(
+        builder: (context) => DialogManager(
+          child: widget,
+        ),
       ),
-      home: MyHomePage(title: 'News'),
     );
   }
 }
