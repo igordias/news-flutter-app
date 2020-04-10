@@ -1,20 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutterapptemplate/presentation/graph/injector.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutterapptemplate/presentation/graph/injector.dart';
 import 'package:flutterapptemplate/presentation/util/dialog/dialog_manager.dart';
-import 'package:flutterapptemplate/presentation/util/dialog/dialog_service.dart';
 import 'package:flutterapptemplate/presentation/util/error/error_handler.dart';
 import 'package:flutterapptemplate/presentation/util/error/error_stream_controller.dart';
 import 'package:flutterapptemplate/presentation/view/widgets/headlines/headlines_widget.dart';
-import 'package:kiwi/kiwi.dart' as kiwi;
 
-import 'domain/entity/mutable_article.dart';
+import 'package:flutter_translate/flutter_translate.dart';
+import 'package:flutterapptemplate/presentation/util/localization/string_resource.dart';
 
-void main() {
-  Injector.setup();
-  runApp(MyApp());
+ void main() async {
+  await Injector.setup();
+  var localizationDelegate = Injector.resolve<LocalizationDelegate>();
+  runApp(LocalizedApp(localizationDelegate, MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -24,15 +23,34 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _initErrorHandler();
+
+    LocalizationDelegate localizationDelegate =
+        LocalizedApp.of(context).delegate;
+
+    return LocalizationProvider(
+      state: LocalizationProvider.of(context).state,
+      child: _getMaterialApp(context, localizationDelegate),
+    );
+  }
+
+  MaterialApp _getMaterialApp(BuildContext context, LocalizationDelegate localizationDelegate) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: MyHomePage(title: 'News'),
-        builder: (context, widget) {
-          return _initDialogManager(context, widget);
-        });
+      title: 'Flutter Demo',
+      builder: (context, widget) {
+        return _initDialogManager(context, widget);
+      },
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        localizationDelegate
+      ],
+      supportedLocales: localizationDelegate.supportedLocales,
+      locale: localizationDelegate.currentLocale,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(title: translate(StringResource.News)),
+    );
   }
 
   void _initErrorHandler() {
